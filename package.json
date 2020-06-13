@@ -1,0 +1,22 @@
+{
+  "name": "pomodoro",
+  "version": "1.0.0",
+  "description": "a CLI tool for Pomodoro Technique",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benibana2001/pomodoro.git"
+  },
+  "keywords": [
+    "pomodoro"
+  ],
+  "author": "whasse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benibana2001/pomodoro/issues"
+  },
+  "homepage": "https://github.com/benibana2001/pomodoro#readme"
+}
