@@ -1,11 +1,14 @@
 const Counter = require("./Counter");
-const AddCommand = require('./AddCommand')
-const SubCommand = require('./SubCommand')
+const AddCommand = require("./AddCommand");
+const SubCommand = require("./SubCommand");
+const SetState = require("./SetState");
 
 module.exports = class IOHandler {
   constructor(time) {
     this.readline = require("readline");
     this.counter = new Counter(time);
+
+    this.stopping = false;
   }
 
   init() {
@@ -14,6 +17,7 @@ module.exports = class IOHandler {
 
     process.stdin.on("keypress", (str, key) => {
       const stopKey = key.ctrl && key.name === "c";
+
       if (stopKey) {
         process.exit();
       } else {
@@ -27,9 +31,21 @@ module.exports = class IOHandler {
             this.counter.execute(new SubCommand(60));
             break;
         }
+
+        switch (str) {
+          case " ":
+            // console.log(this.stopping);
+            if (this.stopping) {
+              this.counter.setState(new SetState(0));
+            } else {
+              this.counter.setState(new SetState(-1));
+            }
+
+            this.stopping = !this.stopping;
+        }
       }
     });
 
-    this.counter.count();
+    this.counter.start();
   }
 };

@@ -5,9 +5,22 @@ module.exports = class Counter {
   }
 
   count() {
-    setTimeout(() => {
+    const countdown = () => {
       this.time -= 1;
       console.log(this.time);
+    };
+
+    setTimeout(() => {
+      switch (this.state) {
+        case 0:
+          countdown();
+          break;
+        case -1:
+          break;
+        default:
+          break;
+      }
+
       this.count();
     }, 1000);
   }
@@ -29,17 +42,11 @@ module.exports = class Counter {
     this.time = command.execute(this.time, command.value);
   }
 
+  setState(stateCommand) {
+    this.state = stateCommand.execute(stateCommand.value);
+  }
+
   start() {
-    switch (this.state) {
-      case 0:
-        this.count();
-        break;
-      case 1:
-        break;
-      case -1:
-        break;
-      default:
-        break;
-    }
+    this.count();
   }
 };
