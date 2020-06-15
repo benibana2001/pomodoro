@@ -23,11 +23,11 @@ module.exports = class IOHandler {
       } else {
         switch (key.name) {
           case "up":
-            console.log("+60");
+            // console.log("+60");
             this.counter.execute(new AddCommand(60));
             break;
           case "down":
-            console.log("-60");
+            // console.log("-60");
             this.counter.execute(new SubCommand(60));
             break;
         }

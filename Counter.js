@@ -2,17 +2,25 @@ module.exports = class Counter {
   constructor(time) {
     this.time = time;
     this.state = 0;
+    this.logger = logger();
   }
 
   count() {
     const countdown = () => {
       this.time -= 1;
-      console.log(this.time);
+      this.logger.add(this.time);
+      this.logger.show();
+
+      if (this.time <= 0) {
+        this.logger.add("break");
+        this.end();
+      }
     };
 
     setTimeout(() => {
       switch (this.state) {
         case 0:
+        case 1:
           countdown();
           break;
         case -1:
@@ -25,17 +33,11 @@ module.exports = class Counter {
     }, 1000);
   }
 
-  stop() {
-    this.state = 1;
-  }
-
-  restart() {
-    this.state = 0;
-    this.start();
-  }
-
   end() {
-    this.state = -1;
+    console.log("end");
+
+    this.state = 1;
+    this.time = 300;
   }
 
   execute(command) {
@@ -49,4 +51,19 @@ module.exports = class Counter {
   start() {
     this.count();
   }
+};
+
+const logger = function () {
+  let log = "";
+
+  return {
+    add: (msg) => {
+      log = msg;
+    },
+    show: () => {
+      console.clear();
+      console.log(log);
+      log = "";
+    },
+  };
 };
